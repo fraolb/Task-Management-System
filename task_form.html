@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Task Management</title>
+  </head>
+  <body>
+    <h1>Task Management</h1>
+    <h2>Add New Task</h2>
+    <form action="/cgi-bin/add_task.cgi" method="post">
+      <label for="name">Name:</label><br />
+      <input type="text" id="name" name="name" required /><br />
+      <label for="description">Description:</label><br />
+      <textarea id="description" name="description" required></textarea><br />
+      <label for="due_date">Due Date:</label><br />
+      <input type="date" id="due_date" name="due_date" required /><br />
+      <label for="status">Status:</label><br />
+      <select id="status" name="status" required>
+        <option value="Pending">Pending</option>
+        <option value="Completed">Completed</option></select
+      ><br /><br />
+      <input type="submit" value="Add Task" />
+    </form>
+
+    <hr />
+    <h2>Existing Tasks</h2>
+    <form action="/cgi-bin/update_task.cgi" method="post" id="update_form">
+      <input type="submit" value="Update Tasks" />
+      <div id="task_list"></div>
+    </form>
+    <script>
+      fetch("/cgi-bin/view_tasks.cgi")
+        .then((response) => response.text())
+        .then(
+          (data) => (document.getElementById("task_list").innerHTML = data)
+        );
+    </script>
+  </body>
+</html>
